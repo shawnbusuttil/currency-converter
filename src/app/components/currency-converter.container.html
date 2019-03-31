@@ -1,0 +1,30 @@
+<form [formGroup]="ccForm" (ngSubmit)="onSubmit()" novalidate>
+  <div>
+    <label>Base Currency:</label>
+    <select name="base" formControlName="base">
+      <option *ngFor="let currency of getCurrencies()" [value]="currency">
+        {{currency}}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label>Target Currency:</label>
+    <select name="target" formControlName="target">
+      <option *ngFor="let currency of getCurrencies()" [value]="currency">
+        {{currency}}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label>Amount:</label>
+    <input name="amount" type="number" formControlName="amount" />
+  </div>
+
+  <button type="submit" [disabled]="!ccForm.valid">Convert Amount</button>
+</form>
+
+<cc-conversion *ngIf="activeConversion" [conversion]="activeConversion"></cc-conversion>
+<cc-rates-list *ngIf="exchangeRates" [rates]="exchangeRates"></cc-rates-list>
+
